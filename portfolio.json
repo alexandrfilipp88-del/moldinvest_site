@@ -1,10 +1,10 @@
 {
   "updatedAt": "2026-09-18",
   "stocks": [
-    { "ticker": "PMBK", "quantity": 10, "avgPrice": 103.48, "invested": 1034.80, "commission": 0, "cost": 763.65, "divGross": 43.73, "divTaxes": 0, "divNet": 40.43, "divYield": 65.30 },
-    { "ticker": "FNCB", "quantity": 6, "avgPrice": 205.00, "invested": 1025.00, "commission": 129.62, "cost": 1154.62, "divGross": -33.48, "divTaxes": 548.99, "divNet": 0, "divYield": 53.56 },
-    { "ticker": "OTPF", "quantity": 15, "avgPrice": 276.67, "invested": 4150.00, "commission": 333.68, "cost": 4483.68, "divGross": 1643.20, "divTaxes": 98.72, "divNet": 1546.48, "divYield": 37.26 },
-    { "ticker": "PBAN", "quantity": 5, "avgPrice": 31.33, "invested": 470.00, "commission": 234.00, "cost": 704.00, "divGross": 134.76, "divTaxes": 8.08, "divNet": 126.68, "divYield": 26.95 },
+    { "ticker": "ENGB", "quantity": 10, "avgPrice": 105.48, "invested": 1054.80, "commission": 129.74, "cost": 1184.54, "divGross": 763.65, "divTaxes": 43.23, "divNet": 720.42, "divYield": 68.30 },
+    { "ticker": "FNCB", "quantity": 5, "avgPrice": 205.00, "invested": 1025.00, "commission": 129.62, "cost": 1154.62, "divGross": -33.48, "divTaxes": 548.99, "divNet": 0, "divYield": 53.56 },
+    { "ticker": "OTP", "quantity": 15, "avgPrice": 276.67, "invested": 4150.00, "commission": 333.68, "cost": 4483.68, "divGross": 1643.20, "divTaxes": 98.72, "divNet": 1546.48, "divYield": 37.26 },
+    { "ticker": "FRAN", "quantity": 15, "avgPrice": 31.33, "invested": 470.00, "commission": 234.00, "cost": 704.00, "divGross": 134.76, "divTaxes": 8.08, "divNet": 126.68, "divYield": 26.95 },
     { "ticker": "MAIB", "quantity": 100, "avgPrice": 69.03, "invested": 6903.00, "commission": 1171.11, "cost": 8074.11, "divGross": 1505.42, "divTaxes": 90.33, "divNet": 1415.08, "divYield": 20.50 },
     { "ticker": "VCIB", "quantity": 25, "avgPrice": 106.20, "invested": 2655.00, "commission": 636.97, "cost": 3291.97, "divGross": 435.02, "divTaxes": 24.62, "divNet": 410.40, "divYield": 15.46 },
     { "ticker": "FLCA", "quantity": 50, "avgPrice": 8.00, "invested": 400.00, "commission": 128.40, "cost": 528.40, "divGross": 0.00, "divTaxes": 0.00, "divNet": 0.00, "divYield": 0.00 }
