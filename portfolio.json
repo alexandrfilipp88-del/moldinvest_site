@@ -1,0 +1,13 @@
+{
+  "updatedAt": "2026-09-18",
+  "stocks": [
+    { "ticker": "MAIB", "companie": "Moldova Agroindbank", "actiuni": 150, "pretMediu": 120.50, "pretCurent": 145.00, "dividendeIncasate": 1200.00 },
+    { "ticker": "VICB", "companie": "Victoriabank", "actiuni": 200, "pretMediu": 45.20, "pretCurent": 51.80, "dividendeIncasate": 640.00 },
+    { "ticker": "MOLD", "companie": "Moldtelecom", "actiuni": 100, "pretMediu": 30.00, "pretCurent": 28.50, "dividendeIncasate": 150.00 }
+  ],
+  "bonds": [
+    { "codEmisiune": "VMS-2027-06", "maturitate": "2027-06-15", "sumaInvestita": 50000, "rataCuponProcent": 7.25, "frecventaPlata": "Trimestrial", "couponIncasat": 3625.00 },
+    { "codEmisiune": "eVMS-2026-12", "maturitate": "2026-12-01", "sumaInvestita": 30000, "rataCuponProcent": 6.80, "frecventaPlata": "Lunar", "couponIncasat": 1700.00 },
+    { "codEmisiune": "VMS-2029-03", "maturitate": "2029-03-01", "sumaInvestita": 20000, "rataCuponProcent": 8.10, "frecventaPlata": "Trimestrial", "couponIncasat": 810.00 }
+  ]
+}

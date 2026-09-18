@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Moldinvest — Admin: Generator portfolio.json</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<style>
+  body { font-family: system-ui, sans-serif; }
+  .table-wrap { overflow-x: auto; }
+</style>
+</head>
+<body class="bg-slate-50 text-slate-900 min-h-screen">
+
+<div class="max-w-3xl mx-auto px-4 py-10">
+  <h1 class="text-xl font-bold mb-1">Moldinvest — Admin</h1>
+  <p class="text-sm text-slate-500 mb-6">
+    Acest instrument rulează 100% în browser-ul tău (nu trimite nimic pe internet).
+    Încarcă fișierul Excel cu portofoliul, verifică previzualizarea, apoi apasă
+    <strong>„Descarcă portfolio.json”</strong> — copiază fișierul descărcat peste
+    <code>portfolio.json</code> din repo-ul de pe GitHub și fă push. Vercel
+    republică automat site-ul cu datele noi.
+  </p>
+
+  <div
+    id="dropzone"
+    class="cursor-pointer rounded-2xl border-2 border-dashed border-slate-300 bg-white px-6 py-14 text-center transition-colors"
+  >
+    <input id="file-input" type="file" accept=".xlsx" class="hidden" />
+    <p id="dropzone-text" class="text-sm text-slate-500">
+      📤 Trage fișierul <code>.xlsx</code> aici sau apasă pentru a selecta.<br />
+      Trebuie să conțină sheet-urile <strong>Actiuni_MD</strong> și <strong>Obligatiuni_VMS</strong>.
+    </p>
+  </div>
+
+  <div id="status" class="mt-4 text-sm"></div>
+
+  <div id="preview" class="mt-8 hidden">
+    <div class="flex items-center justify-between mb-3">
+      <h2 class="font-semibold">Previzualizare</h2>
+      <button id="download-btn" class="rounded-lg bg-blue-900 text-white text-sm font-semibold px-4 py-2 hover:bg-blue-800">
+        ⬇️ Descarcă portfolio.json
+      </button>
+    </div>
+
+    <p class="text-xs font-semibold text-slate-500 mb-2">Actiuni_MD</p>
+    <div class="table-wrap rounded-lg border border-slate-200 bg-white mb-6">
+      <table class="min-w-full text-xs">
+        <thead class="bg-slate-900 text-white">
+          <tr>
+            <th class="px-3 py-2 text-left">Ticker</th>
+            <th class="px-3 py-2 text-left">Companie</th>
+            <th class="px-3 py-2 text-right">Actiuni</th>
+            <th class="px-3 py-2 text-right">Pret_Mediu</th>
+            <th class="px-3 py-2 text-right">Pret_Curent</th>
+            <th class="px-3 py-2 text-right">Dividende_Incasate</th>
+          </tr>
+        </thead>
+        <tbody id="stocks-preview"></tbody>
+      </table>
+    </div>
+
+    <p class="text-xs font-semibold text-slate-500 mb-2">Obligatiuni_VMS</p>
+    <div class="table-wrap rounded-lg border border-slate-200 bg-white">
+      <table class="min-w-full text-xs">
+        <thead class="bg-slate-900 text-white">
+          <tr>
+            <th class="px-3 py-2 text-left">Cod_Emisiune</th>
+            <th class="px-3 py-2 text-left">Maturitate</th>
+            <th class="px-3 py-2 text-right">Suma_Investita</th>
+            <th class="px-3 py-2 text-right">Rata_Cupon_Procent</th>
+            <th class="px-3 py-2 text-left">Frecventa_Plata</th>
+            <th class="px-3 py-2 text-right">Cupon_Incasat</th>
+          </tr>
+        </thead>
+        <tbody id="bonds-preview"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <p class="mt-10 text-xs text-slate-400">
+    Format așteptat — Sheet 1 <strong>Actiuni_MD</strong>:
+    <code>Ticker | Companie | Actiuni | Pret_Mediu | Pret_Curent | Dividende_Incasate</code><br />
+    Sheet 2 <strong>Obligatiuni_VMS</strong>:
+    <code>Cod_Emisiune | Maturitate | Suma_Investita | Rata_Cupon_Procent | Frecventa_Plata | Cupon_Incasat</code>
+  </p>
+</div>
+
+<script>
+const STOCKS_SHEET = "Actiuni_MD";
+const BONDS_SHEET = "Obligatiuni_VMS";
+
+let parsedData = null;
+
+function toNumber(v) {
+  if (v === undefined || v === null || v === "") return 0;
+  const n = typeof v === "number" ? v : parseFloat(String(v).replace(",", "."));
+  return Number.isFinite(n) ? n : 0;
+}
+
+function setStatus(msg, type) {
+  const el = document.getElementById("status");
+  const colors = { error: "text-red-600", success: "text-emerald-600", info: "text-slate-500" };
+  el.className = "mt-4 text-sm " + (colors[type] || colors.info);
+  el.textContent = msg;
+}
+
+async function handleFile(file) {
+  if (!file) return;
+  if (!file.name.toLowerCase().endsWith(".xlsx")) {
+    setStatus("Fișierul trebuie să fie de tip .xlsx", "error");
+    return;
+  }
+  setStatus("Se procesează fișierul...", "info");
+
+  try {
+    const buffer = await file.arrayBuffer();
+    const workbook = XLSX.read(buffer, { type: "array" });
+
+    if (!workbook.SheetNames.includes(STOCKS_SHEET)) {
+      throw new Error(`Lipsește sheet-ul "${STOCKS_SHEET}"`);
+    }
+    if (!workbook.SheetNames.includes(BONDS_SHEET)) {
+      throw new Error(`Lipsește sheet-ul "${BONDS_SHEET}"`);
+    }
+
+    const stocksRaw = XLSX.utils.sheet_to_json(workbook.Sheets[STOCKS_SHEET], { defval: "" });
+    const bondsRaw = XLSX.utils.sheet_to_json(workbook.Sheets[BONDS_SHEET], { defval: "" });
+
+    const stocks = stocksRaw
+      .filter(r => r.Ticker || r.Companie)
+      .map(r => ({
+        ticker: String(r.Ticker || "").trim(),
+        companie: String(r.Companie || "").trim(),
+        actiuni: toNumber(r.Actiuni),
+        pretMediu: toNumber(r.Pret_Mediu),
+        pretCurent: toNumber(r.Pret_Curent),
+        dividendeIncasate: toNumber(r.Dividende_Incasate),
+      }));
+
+    const bonds = bondsRaw
+      .filter(r => r.Cod_Emisiune)
+      .map(r => ({
+        codEmisiune: String(r.Cod_Emisiune || "").trim(),
+        maturitate: String(r.Maturitate || "").trim(),
+        sumaInvestita: toNumber(r.Suma_Investita),
+        rataCuponProcent: toNumber(r.Rata_Cupon_Procent),
+        frecventaPlata: String(r.Frecventa_Plata || "").trim(),
+        couponIncasat: toNumber(r.Cupon_Incasat),
+      }));
+
+    if (stocks.length === 0 && bonds.length === 0) {
+      throw new Error("Nu au fost găsite rânduri valide în niciunul dintre sheet-uri.");
+    }
+
+    parsedData = { updatedAt: new Date().toISOString().slice(0, 10), stocks, bonds };
+    renderPreview(parsedData);
+    setStatus(`✅ ${stocks.length + bonds.length} rânduri găsite. Verifică previzualizarea și descarcă fișierul.`, "success");
+  } catch (err) {
+    console.error(err);
+    setStatus("❌ " + err.message, "error");
+    document.getElementById("preview").classList.add("hidden");
+    parsedData = null;
+  }
+}
+
+function renderPreview(data) {
+  document.getElementById("preview").classList.remove("hidden");
+  document.getElementById("stocks-preview").innerHTML = data.stocks.map(s => `
+    <tr class="border-t border-slate-100">
+      <td class="px-3 py-2">${s.ticker}</td>
+      <td class="px-3 py-2">${s.companie}</td>
+      <td class="px-3 py-2 text-right">${s.actiuni}</td>
+      <td class="px-3 py-2 text-right">${s.pretMediu}</td>
+      <td class="px-3 py-2 text-right">${s.pretCurent}</td>
+      <td class="px-3 py-2 text-right">${s.dividendeIncasate}</td>
+    </tr>`).join("");
+  document.getElementById("bonds-preview").innerHTML = data.bonds.map(b => `
+    <tr class="border-t border-slate-100">
+      <td class="px-3 py-2">${b.codEmisiune}</td>
+      <td class="px-3 py-2">${b.maturitate}</td>
+      <td class="px-3 py-2 text-right">${b.sumaInvestita}</td>
+      <td class="px-3 py-2 text-right">${b.rataCuponProcent}</td>
+      <td class="px-3 py-2">${b.frecventaPlata}</td>
+      <td class="px-3 py-2 text-right">${b.couponIncasat}</td>
+    </tr>`).join("");
+}
+
+document.getElementById("download-btn").addEventListener("click", () => {
+  if (!parsedData) return;
+  const blob = new Blob([JSON.stringify(parsedData, null, 2)], { type: "application/json" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = "portfolio.json";
+  a.click();
+  URL.revokeObjectURL(url);
+});
+
+const dropzone = document.getElementById("dropzone");
+const fileInput = document.getElementById("file-input");
+
+dropzone.addEventListener("click", () => fileInput.click());
+fileInput.addEventListener("change", (e) => handleFile(e.target.files[0]));
+dropzone.addEventListener("dragover", (e) => {
+  e.preventDefault();
+  dropzone.classList.add("border-blue-500", "bg-blue-50");
+});
+dropzone.addEventListener("dragleave", () => {
+  dropzone.classList.remove("border-blue-500", "bg-blue-50");
+});
+dropzone.addEventListener("drop", (e) => {
+  e.preventDefault();
+  dropzone.classList.remove("border-blue-500", "bg-blue-50");
+  handleFile(e.dataTransfer.files[0]);
+});
+</script>
+</body>
+</html>

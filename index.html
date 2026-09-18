@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Moldinvest SRL — Consultanță Financiară & Investiții în Moldova</title>
+<meta name="description" content="Ghidul tău de încredere în investițiile din Republica Moldova. Consultanță 1-la-1, workshop-uri și portofoliu public transparent." />
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📈</text></svg>" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          navy: { DEFAULT: '#0F172A', light: '#1E293B' },
+          brand: { blue: '#003366', emerald: '#059669', gold: '#D4AF37' },
+          surface: { light: '#F8FAFC' }
+        },
+        fontFamily: { sans: ['Inter', 'system-ui', 'sans-serif'] }
+      }
+    }
+  }
+</script>
+<style>
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Inter', system-ui, sans-serif; }
+  [x-cloak] { display: none !important; }
+  .table-wrap { overflow-x: auto; }
+  .table-wrap table { min-width: 800px; }
+</style>
+</head>
+<body class="bg-white text-navy antialiased">
+
+<!-- ============ HEADER ============ -->
+<header class="sticky top-0 z-50 bg-white/90 backdrop-blur border-b border-slate-100">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between h-16">
+      <a href="#home" class="flex items-center gap-2 font-bold text-brand-blue text-lg">
+        <span class="flex h-9 w-9 items-center justify-center rounded-lg bg-brand-blue text-white text-base">📈</span>
+        Moldinvest
+      </a>
+
+      <nav class="hidden md:flex items-center gap-7">
+        <a href="#home" class="text-sm font-medium text-slate-600 hover:text-brand-blue transition-colors" data-i18n="nav.home"></a>
+        <a href="#services" class="text-sm font-medium text-slate-600 hover:text-brand-blue transition-colors" data-i18n="nav.services"></a>
+        <a href="#portfolio" class="text-sm font-medium text-slate-600 hover:text-brand-blue transition-colors" data-i18n="nav.portfolio"></a>
+        <a href="#about" class="text-sm font-medium text-slate-600 hover:text-brand-blue transition-colors" data-i18n="nav.about"></a>
+        <a href="#contact" class="text-sm font-medium text-slate-600 hover:text-brand-blue transition-colors" data-i18n="nav.contact"></a>
+      </nav>
+
+      <div class="hidden md:flex items-center gap-4">
+        <div id="lang-switch-desktop" class="flex items-center gap-1 rounded-full bg-slate-100 p-1"></div>
+        <a href="#contact" class="rounded-lg bg-brand-emerald px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-emerald-700 transition-colors" data-i18n="nav.cta"></a>
+      </div>
+
+      <button id="mobile-menu-btn" type="button" class="md:hidden p-2 text-slate-700" aria-label="Toggle menu">
+        <svg id="icon-menu" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="18" x2="20" y2="18"/></svg>
+        <svg id="icon-close" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="hidden"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <div id="mobile-menu" class="hidden md:hidden border-t border-slate-100 bg-white px-4 pb-6 pt-2">
+    <nav class="flex flex-col gap-1">
+      <a href="#home" class="mobile-link py-3 text-base font-medium text-slate-700 border-b border-slate-50" data-i18n="nav.home"></a>
+      <a href="#services" class="mobile-link py-3 text-base font-medium text-slate-700 border-b border-slate-50" data-i18n="nav.services"></a>
+      <a href="#portfolio" class="mobile-link py-3 text-base font-medium text-slate-700 border-b border-slate-50" data-i18n="nav.portfolio"></a>
+      <a href="#about" class="mobile-link py-3 text-base font-medium text-slate-700 border-b border-slate-50" data-i18n="nav.about"></a>
+      <a href="#contact" class="mobile-link py-3 text-base font-medium text-slate-700 border-b border-slate-50" data-i18n="nav.contact"></a>
+    </nav>
+    <div class="mt-4" id="lang-switch-mobile"></div>
+    <a href="#contact" class="mobile-link mt-4 block text-center rounded-lg bg-brand-emerald px-4 py-3 text-sm font-semibold text-white shadow-sm" data-i18n="nav.cta"></a>
+  </div>
+</header>
+
+<main>
+  <!-- ============ HERO ============ -->
+  <section id="home" class="bg-gradient-to-b from-surface-light to-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-20 sm:pt-24 sm:pb-28 text-center">
+      <span class="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 text-brand-emerald text-xs font-semibold px-3 py-1 mb-6">
+        🛡️ Reglementat conform standardelor pieței RM
+      </span>
+
+      <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight text-navy max-w-3xl mx-auto leading-tight" data-i18n="hero.title"></h1>
+      <p class="mt-5 text-base sm:text-lg text-slate-600 max-w-2xl mx-auto" data-i18n="hero.subtitle"></p>
+
+      <div class="mt-8 flex flex-col sm:flex-row gap-3 justify-center">
+        <a href="#portfolio" class="inline-flex items-center justify-center gap-2 rounded-lg bg-brand-blue px-6 py-3.5 text-sm font-semibold text-white shadow-sm hover:bg-navy-light transition-colors">
+          <span data-i18n="hero.ctaPrimary"></span> →
+        </a>
+        <a href="#services" class="inline-flex items-center justify-center gap-2 rounded-lg bg-white border border-slate-200 px-6 py-3.5 text-sm font-semibold text-brand-blue hover:border-brand-blue transition-colors" data-i18n="hero.ctaSecondary"></a>
+      </div>
+
+      <div class="mt-16 grid grid-cols-1 sm:grid-cols-3 gap-5 max-w-4xl mx-auto">
+        <div class="rounded-2xl bg-white shadow-sm border border-slate-100 px-6 py-8 text-center">
+          <p class="text-3xl sm:text-4xl font-extrabold text-brand-blue" id="stat-community">0+</p>
+          <p class="mt-2 text-sm text-slate-500" data-i18n="stats.community"></p>
+        </div>
+        <div class="rounded-2xl bg-white shadow-sm border border-slate-100 px-6 py-8 text-center">
+          <p class="text-3xl sm:text-4xl font-extrabold text-brand-blue" id="stat-portfolio">0 MDL</p>
+          <p class="mt-2 text-sm text-slate-500" data-i18n="stats.portfolioManaged"></p>
+        </div>
+        <div class="rounded-2xl bg-white shadow-sm border border-slate-100 px-6 py-8 text-center">
+          <p class="text-3xl sm:text-4xl font-extrabold text-brand-blue" id="stat-hours">0+</p>
+          <p class="mt-2 text-sm text-slate-500" data-i18n="stats.hours"></p>
+        </div>
+      </div>
+
+      <div class="mt-14 max-w-3xl mx-auto rounded-2xl border border-slate-100 bg-white px-6 py-6 text-left sm:text-center shadow-sm">
+        <h3 class="font-bold text-navy" data-i18n="public.title"></h3>
+        <p class="mt-2 text-sm text-slate-600" data-i18n="public.text"></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SERVICES ============ -->
+  <section id="services" class="bg-white py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-2xl mx-auto mb-12">
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-navy" data-i18n="services.title"></h2>
+        <p class="mt-3 text-slate-600" data-i18n="services.subtitle"></p>
+      </div>
+      <div id="services-grid" class="grid grid-cols-1 md:grid-cols-3 gap-6"></div>
+    </div>
+  </section>
+
+  <!-- ============ PORTFOLIO ============ -->
+  <section id="portfolio" class="bg-surface-light py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-2xl mx-auto mb-10">
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-navy" data-i18n="portfolio.title"></h2>
+        <p class="mt-3 text-slate-600" data-i18n="portfolio.subtitle"></p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-5 mb-12">
+        <div class="rounded-2xl bg-white border border-slate-100 shadow-sm p-6 flex items-center gap-4">
+          <span class="flex h-11 w-11 items-center justify-center rounded-xl text-white bg-brand-blue text-lg">💰</span>
+          <div>
+            <p class="text-xs text-slate-500" data-i18n="portfolio.kpi.totalValue"></p>
+            <p class="text-xl font-bold text-navy" id="kpi-total">0 MDL</p>
+          </div>
+        </div>
+        <div class="rounded-2xl bg-white border border-slate-100 shadow-sm p-6 flex items-center gap-4">
+          <span class="flex h-11 w-11 items-center justify-center rounded-xl text-white bg-brand-emerald text-lg">📈</span>
+          <div>
+            <p class="text-xs text-slate-500" data-i18n="portfolio.kpi.annualIncome"></p>
+            <p class="text-xl font-bold text-navy" id="kpi-income">0 MDL</p>
+          </div>
+        </div>
+        <div class="rounded-2xl bg-white border border-slate-100 shadow-sm p-6 flex items-center gap-4">
+          <span class="flex h-11 w-11 items-center justify-center rounded-xl text-white bg-amber-500 text-lg">%</span>
+          <div>
+            <p class="text-xs text-slate-500" data-i18n="portfolio.kpi.avgYield"></p>
+            <p class="text-xl font-bold text-navy" id="kpi-yield">0%</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="space-y-12">
+        <div>
+          <h3 class="text-lg font-bold text-navy mb-4" data-i18n="portfolio.tier1.title"></h3>
+          <div class="table-wrap rounded-xl border border-slate-100 bg-white shadow-sm">
+            <table class="w-full text-sm">
+              <thead>
+                <tr class="bg-navy text-white text-left">
+                  <th class="px-4 py-3 font-semibold" data-i18n="portfolio.tier1.company"></th>
+                  <th class="px-4 py-3 font-semibold text-right" data-i18n="portfolio.tier1.shares"></th>
+                  <th class="px-4 py-3 font-semibold text-right" data-i18n="portfolio.tier1.avgPrice"></th>
+                  <th class="px-4 py-3 font-semibold text-right" data-i18n="portfolio.tier1.currentPrice"></th>
+                  <th class="px-4 py-3 font-semibold text-right" data-i18n="portfolio.tier1.totalValue"></th>
+                  <th class="px-4 py-3 font-semibold text-right" data-i18n="portfolio.tier1.dividends"></th>
+                  <th class="px-4 py-3 font-semibold text-right" data-i18n="portfolio.tier1.totalReturn"></th>
+                </tr>
+              </thead>
+              <tbody id="stocks-tbody"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <div>
+          <h3 class="text-lg font-bold text-navy mb-4" data-i18n="portfolio.tier2.title"></h3>
+          <div class="table-wrap rounded-xl border border-slate-100 bg-white shadow-sm">
+            <table class="w-full text-sm">
+              <thead>
+                <tr class="bg-navy text-white text-left">
+                  <th class="px-4 py-3 font-semibold" data-i18n="portfolio.tier2.issue"></th>
+                  <th class="px-4 py-3 font-semibold text-right" data-i18n="portfolio.tier2.invested"></th>
+                  <th class="px-4 py-3 font-semibold text-right" data-i18n="portfolio.tier2.couponRate"></th>
+                  <th class="px-4 py-3 font-semibold text-right" data-i18n="portfolio.tier2.frequency"></th>
+                  <th class="px-4 py-3 font-semibold text-right" data-i18n="portfolio.tier2.couponReceived"></th>
+                  <th class="px-4 py-3 font-semibold text-right" data-i18n="portfolio.tier2.projectedIncome"></th>
+                </tr>
+              </thead>
+              <tbody id="bonds-tbody"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer id="contact" class="bg-navy text-slate-300">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+      <div>
+        <div class="flex items-center gap-2 font-bold text-white text-lg mb-3">
+          <span class="flex h-9 w-9 items-center justify-center rounded-lg bg-brand-emerald text-white">📈</span>
+          Moldinvest SRL
+        </div>
+        <p class="text-sm text-slate-400" data-i18n="footer.address"></p>
+      </div>
+      <div class="text-sm">
+        <p class="font-semibold text-white mb-3" data-i18n="nav.contact"></p>
+        <a href="mailto:contact@moldinvest.md" class="flex items-center gap-2 text-slate-400 hover:text-white transition-colors">✉️ contact@moldinvest.md</a>
+        <div class="flex items-center gap-4 mt-4">
+          <a href="https://www.tiktok.com" target="_blank" rel="noopener noreferrer" class="text-slate-400 hover:text-white">TikTok</a>
+          <a href="https://www.youtube.com" target="_blank" rel="noopener noreferrer" class="text-slate-400 hover:text-white">YouTube</a>
+          <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer" class="text-slate-400 hover:text-white">Instagram</a>
+        </div>
+      </div>
+      <div class="text-xs text-slate-500 leading-relaxed" data-i18n="footer.disclaimer"></div>
+    </div>
+    <div class="mt-10 pt-6 border-t border-slate-700/50 text-xs text-slate-500 flex flex-col sm:flex-row justify-between gap-2">
+      <span>© <span id="footer-year"></span> Moldinvest SRL. <span data-i18n="footer.rights"></span></span>
+      <a href="admin.html" class="hover:text-slate-300">Admin</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* =====================================================================
+   MOLDINVEST — single-file static site (no build step, no backend).
+   - i18n via a JS dictionary object + data-i18n attributes.
+   - Portfolio data loaded from ./portfolio.json (edit that file, or
+     regenerate it with admin.html, then commit + push to update the
+     live site — GitHub → Vercel redeploys automatically).
+   ===================================================================== */
+
+const DICTIONARIES = {
+ro: {
+  nav: { home: "Acasă", services: "Servicii", portfolio: "Portofoliu Public", about: "Despre Noi", contact: "Contact", cta: "Programează o Consultanță" },
+  hero: {
+    title: "Ghidul tău de încredere în investițiile din Republica Moldova",
+    subtitle: "Educație financiară aplicată și independență financiară reală — de la primele acțiuni BVM până la un portofoliu diversificat de VMS și dividende.",
+    ctaPrimary: "Vezi Portofoliul Firmelor", ctaSecondary: "Alege un Serviciu"
+  },
+  stats: { community: "Comunitate TikTok & YouTube", portfolioManaged: "Portofoliu Administrat (MDL)", hours: "Ore de Consultanță Oferite" },
+  public: { title: "Building in Public", text: "Moldinvest SRL publică în timp real fiecare acțiune și obligațiune deținută în portofoliul demonstrativ, cu prețuri, dividende și randamente actualizate — transparență 100%, fără excepții." },
+  services: {
+    title: "Servicii", subtitle: "Alege formatul de consultanță potrivit pentru nivelul și obiectivele tale.", book: "Rezervă acum",
+    items: [
+      { title: "Consultanță Individuală 1-la-1", subtitle: "Financial Coaching personalizat", desc: "Pentru începători care vor să cumpere primele Obligațiuni de Stat (VMS) sau acțiuni la BVM. Sesiune privată de 60 min: analiză profil de risc și configurare conturi.", bullets: ["Sesiune privată 60 min", "Analiză profil de risc", "Configurare conturi de tranzacționare"] },
+      { title: "Workshop-uri & Cursuri de Grup", subtitle: "Masterclass & Cohorts", desc: "Ateliere practice pentru construirea unui portofoliu, calcularea dividendelor și planificarea pensiei sau a unui fond de 1 Milion MDL pentru copii.", bullets: ["Construire portofoliu pas cu pas", "Calcul dividende și randamente", "Planificare pensie / fond pentru copii"] },
+      { title: "Analiză & Rapoarte Financiare la Cerere", subtitle: "Corporate & Personal Advisory", desc: "Consultanță privind optimizarea dividendelor (impozit 6%) și structurarea investițiilor companiei tale.", bullets: ["Optimizare fiscală dividende (6%)", "Structurare investiții corporative", "Rapoarte personalizate"] }
+    ]
+  },
+  portfolio: {
+    title: "Portofoliul Public Moldinvest", subtitle: "Date actualizate din fișierul portfolio.json — fără intervenție manuală pe site.",
+    kpi: { totalValue: "Valoare Totală Portofoliu", annualIncome: "Venit Pasiv Anual Proiectat", avgYield: "Randament Mediu Ponderat" },
+    tier1: { title: "Tier 1 — Acțiuni din Republica Moldova (BVM)", company: "Compania", shares: "Nr. Acțiuni", avgPrice: "Preț Mediu (MDL)", currentPrice: "Preț Curent (MDL)", totalValue: "Valoare Totală (MDL)", dividends: "Dividende Încasate (MDL)", totalReturn: "Randament Total (%)" },
+    tier2: { title: "Tier 2 — Obligațiuni de Stat (VMS / eVMS)", issue: "Emisiune / Maturitate", invested: "Suma Investită (MDL)", couponRate: "Rata Cuponului (%)", frequency: "Frecvență Plată", couponReceived: "Cupon Încasat (MDL)", projectedIncome: "Proiecție Venit Anual (MDL)" },
+    empty: "Nu există date de portofoliu încărcate momentan."
+  },
+  footer: { rights: "Toate drepturile rezervate.", disclaimer: "Informațiile prezentate au scop educațional și nu constituie consultanță de investiții personalizată în sensul legislației pieței de capital din Republica Moldova.", address: "Chișinău, Republica Moldova" }
+},
+ru: {
+  nav: { home: "Главная", services: "Услуги", portfolio: "Публичный Портфель", about: "О Нас", contact: "Контакты", cta: "Записаться на Консультацию" },
+  hero: {
+    title: "Ваш надёжный проводник в мире инвестиций Молдовы",
+    subtitle: "Прикладное финансовое образование и реальная финансовая независимость — от первых акций BVM до диверсифицированного портфеля ГЦБ и дивидендов.",
+    ctaPrimary: "Смотреть Портфель Компаний", ctaSecondary: "Выбрать Услугу"
+  },
+  stats: { community: "Сообщество TikTok и YouTube", portfolioManaged: "Управляемый Портфель (MDL)", hours: "Часов Консультаций Проведено" },
+  public: { title: "Building in Public", text: "Moldinvest SRL публикует в реальном времени каждую акцию и облигацию в демонстрационном портфеле, с актуальными ценами, дивидендами и доходностью — 100% прозрачность, без исключений." },
+  services: {
+    title: "Услуги", subtitle: "Выберите формат консультации, соответствующий вашему уровню и целям.", book: "Забронировать",
+    items: [
+      { title: "Индивидуальная Консультация 1-на-1", subtitle: "Персональный Financial Coaching", desc: "Для начинающих, желающих купить первые Государственные Облигации (ГЦБ) или акции на BVM. Приватная сессия 60 минут: анализ риск-профиля и настройка счетов.", bullets: ["Приватная сессия 60 минут", "Анализ риск-профиля", "Настройка торговых счетов"] },
+      { title: "Групповые Мастер-классы и Курсы", subtitle: "Masterclass & Cohorts", desc: "Практические занятия по построению портфеля, расчёту дивидендов и планированию пенсии или фонда в 1 миллион MDL для детей.", bullets: ["Построение портфеля шаг за шагом", "Расчёт дивидендов и доходности", "Планирование пенсии / фонда для детей"] },
+      { title: "Финансовый Анализ и Отчёты по Запросу", subtitle: "Corporate & Personal Advisory", desc: "Консультации по оптимизации дивидендов (налог 6%) и структурированию инвестиций вашей компании.", bullets: ["Налоговая оптимизация дивидендов (6%)", "Структурирование корпоративных инвестиций", "Индивидуальные отчёты"] }
+    ]
+  },
+  portfolio: {
+    title: "Публичный Портфель Moldinvest", subtitle: "Данные обновляются из файла portfolio.json — без ручного вмешательства на сайте.",
+    kpi: { totalValue: "Общая Стоимость Портфеля", annualIncome: "Прогноз Годового Пассивного Дохода", avgYield: "Средневзвешенная Доходность" },
+    tier1: { title: "Tier 1 — Акции Молдовы (BVM)", company: "Компания", shares: "Кол-во Акций", avgPrice: "Средняя Цена (MDL)", currentPrice: "Текущая Цена (MDL)", totalValue: "Общая Стоимость (MDL)", dividends: "Полученные Дивиденды (MDL)", totalReturn: "Общая Доходность (%)" },
+    tier2: { title: "Tier 2 — Государственные Облигации (ГЦБ / eVMS)", issue: "Выпуск / Погашение", invested: "Инвестированная Сумма (MDL)", couponRate: "Купонная Ставка (%)", frequency: "Периодичность Выплат", couponReceived: "Полученный Купон (MDL)", projectedIncome: "Прогноз Годового Дохода (MDL)" },
+    empty: "Данные портфеля пока не загружены."
+  },
+  footer: { rights: "Все права защищены.", disclaimer: "Представленная информация носит образовательный характер и не является персонализированной инвестиционной консультацией по смыслу законодательства о рынке капитала Республики Молдова.", address: "Кишинёв, Республика Молдова" }
+},
+en: {
+  nav: { home: "Home", services: "Services", portfolio: "Public Portfolio", about: "About Us", contact: "Contact", cta: "Book a Consultation" },
+  hero: {
+    title: "Your trusted guide to investing in Moldova",
+    subtitle: "Applied financial education and real financial independence — from your first BVM shares to a diversified portfolio of government bonds and dividends.",
+    ctaPrimary: "See Our Portfolio", ctaSecondary: "Choose a Service"
+  },
+  stats: { community: "TikTok & YouTube Community", portfolioManaged: "Portfolio Managed (MDL)", hours: "Hours of Consulting Delivered" },
+  public: { title: "Building in Public", text: "Moldinvest SRL publishes every stock and bond in its demo portfolio in real time, with up-to-date prices, dividends and returns — 100% transparency, no exceptions." },
+  services: {
+    title: "Services", subtitle: "Choose the consulting format that matches your level and goals.", book: "Book now",
+    items: [
+      { title: "1-on-1 Individual Consulting", subtitle: "Personalized Financial Coaching", desc: "For beginners who want to buy their first Government Bonds (VMS) or BVM shares. A private 60-minute session: risk profile analysis and account setup.", bullets: ["Private 60-minute session", "Risk profile analysis", "Trading account setup"] },
+      { title: "Workshops & Group Courses", subtitle: "Masterclass & Cohorts", desc: "Hands-on workshops on building a portfolio, calculating dividends, and planning for retirement or a 1 Million MDL fund for your children.", bullets: ["Step-by-step portfolio building", "Dividend and yield calculation", "Retirement / children's fund planning"] },
+      { title: "On-Demand Financial Analysis & Reports", subtitle: "Corporate & Personal Advisory", desc: "Consulting on dividend optimization (6% tax) and structuring your company's investments.", bullets: ["Dividend tax optimization (6%)", "Corporate investment structuring", "Custom reports"] }
+    ]
+  },
+  portfolio: {
+    title: "Moldinvest Public Portfolio", subtitle: "Data loaded from portfolio.json — no manual edits on the site.",
+    kpi: { totalValue: "Total Portfolio Value", annualIncome: "Projected Annual Passive Income", avgYield: "Weighted Average Yield" },
+    tier1: { title: "Tier 1 — Moldovan Stocks (BVM)", company: "Company", shares: "Shares", avgPrice: "Avg. Price (MDL)", currentPrice: "Current Price (MDL)", totalValue: "Total Value (MDL)", dividends: "Dividends Received (MDL)", totalReturn: "Total Return (%)" },
+    tier2: { title: "Tier 2 — Moldovan Government Bonds (VMS / eVMS)", issue: "Issue / Maturity", invested: "Amount Invested (MDL)", couponRate: "Coupon Rate (%)", frequency: "Payment Frequency", couponReceived: "Coupon Received (MDL)", projectedIncome: "Projected Annual Income (MDL)" },
+    empty: "No portfolio data has been uploaded yet."
+  },
+  footer: { rights: "All rights reserved.", disclaimer: "The information presented is for educational purposes only and does not constitute personalized investment advice under Moldovan capital market legislation.", address: "Chișinău, Republic of Moldova" }
+}
+};
+
+let currentLang = localStorage.getItem("moldinvest_lang") || "ro";
+let portfolioData = { stocks: [], bonds: [] };
+
+function get(obj, path) {
+  return path.split(".").reduce((a, k) => (a && a[k] !== undefined ? a[k] : undefined), obj);
+}
+
+function fmtMDL(v) {
+  return (Number(v) || 0).toLocaleString("ro-MD", { maximumFractionDigits: 2 }) + " MDL";
+}
+function fmtPct(v) {
+  return (Number(v) || 0).toLocaleString("ro-MD", { maximumFractionDigits: 2 }) + "%";
+}
+
+function renderLangSwitch() {
+  const langs = ["ro", "ru", "en"];
+  const labels = { ro: "RO", ru: "RU", en: "EN" };
+  const html = langs.map(code => `
+    <button type="button" data-lang="${code}"
+      class="lang-btn px-2.5 py-1 text-xs font-semibold rounded-full transition-colors ${currentLang === code ? 'bg-brand-blue text-white shadow-sm' : 'text-slate-500 hover:text-brand-blue'}">
+      ${labels[code]}
+    </button>`).join("");
+  document.getElementById("lang-switch-desktop").innerHTML = html;
+  document.getElementById("lang-switch-mobile").innerHTML = `<div class="flex items-center gap-1 rounded-full bg-slate-100 p-1 w-fit">${html}</div>`;
+  document.querySelectorAll(".lang-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      currentLang = btn.dataset.lang;
+      localStorage.setItem("moldinvest_lang", currentLang);
+      renderAll();
+    });
+  });
+}
+
+function renderText() {
+  document.documentElement.lang = currentLang;
+  document.querySelectorAll("[data-i18n]").forEach(el => {
+    const val = get(DICTIONARIES[currentLang], el.dataset.i18n);
+    if (typeof val === "string") el.textContent = val;
+  });
+}
+
+function renderServices() {
+  const dict = DICTIONARIES[currentLang].services;
+  const icons = ["🧑‍💼", "👥", "📊"];
+  const bookingLinks = [
+    "https://calendly.com/moldinvest/consultanta-1-la-1",
+    "https://wa.me/37360000000?text=Salut%2C+vreau+sa+ma+inscriu+la+un+workshop+Moldinvest",
+    "https://calendly.com/moldinvest/analiza-financiara"
+  ];
+  const grid = document.getElementById("services-grid");
+  grid.innerHTML = dict.items.map((s, i) => `
+    <div class="flex flex-col rounded-2xl border border-slate-100 bg-surface-light p-7 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all">
+      <span class="flex h-12 w-12 items-center justify-center rounded-xl bg-brand-blue text-white mb-5 text-xl">${icons[i]}</span>
+      <h3 class="text-lg font-bold text-navy">${s.title}</h3>
+      <p class="text-xs font-semibold uppercase tracking-wide text-brand-emerald mt-1">${s.subtitle}</p>
+      <p class="mt-3 text-sm text-slate-600 flex-1">${s.desc}</p>
+      <ul class="mt-4 space-y-2">
+        ${s.bullets.map(b => `<li class="flex items-start gap-2 text-sm text-slate-600"><span class="text-brand-emerald mt-0.5">✓</span>${b}</li>`).join("")}
+      </ul>
+      <a href="${bookingLinks[i]}" target="_blank" rel="noopener noreferrer" class="mt-6 inline-flex items-center justify-center rounded-lg bg-brand-blue px-4 py-3 text-sm font-semibold text-white hover:bg-navy-light transition-colors">${dict.book}</a>
+    </div>
+  `).join("");
+}
+
+function computeKpis() {
+  const stocks = portfolioData.stocks || [];
+  const bonds = portfolioData.bonds || [];
+  const stocksValue = stocks.reduce((s, x) => s + (Number(x.actiuni) || 0) * (Number(x.pretCurent) || 0), 0);
+  const bondsValue = bonds.reduce((s, x) => s + (Number(x.sumaInvestita) || 0), 0);
+  const totalValue = stocksValue + bondsValue;
+  const bondsAnnualIncome = bonds.reduce((s, b) => s + (Number(b.sumaInvestita) || 0) * ((Number(b.rataCuponProcent) || 0) / 100), 0);
+  const stocksCost = stocks.reduce((s, x) => s + (Number(x.actiuni) || 0) * (Number(x.pretMediu) || 0), 0);
+  const stocksGain = stocksValue - stocksCost + stocks.reduce((s, x) => s + (Number(x.dividendeIncasate) || 0), 0);
+  const totalCost = stocksCost + bondsValue;
+  const avgYield = totalCost > 0 ? ((stocksGain + bondsAnnualIncome) / totalCost) * 100 : 0;
+  return { totalValue, annualIncome: bondsAnnualIncome, avgYield };
+}
+
+function stockReturn(s) {
+  const cost = (Number(s.actiuni) || 0) * (Number(s.pretMediu) || 0);
+  const value = (Number(s.actiuni) || 0) * (Number(s.pretCurent) || 0);
+  const div = Number(s.dividendeIncasate) || 0;
+  if (cost <= 0) return 0;
+  return ((value - cost + div) / cost) * 100;
+}
+
+function renderPortfolio() {
+  const dict = DICTIONARIES[currentLang].portfolio;
+  const kpi = computeKpis();
+  document.getElementById("kpi-total").textContent = fmtMDL(kpi.totalValue);
+  document.getElementById("kpi-income").textContent = fmtMDL(kpi.annualIncome);
+  document.getElementById("kpi-yield").textContent = fmtPct(kpi.avgYield);
+
+  const stocks = portfolioData.stocks || [];
+  const stocksBody = document.getElementById("stocks-tbody");
+  stocksBody.innerHTML = stocks.length === 0
+    ? `<tr><td colspan="7" class="px-4 py-6 text-center text-slate-400">${dict.empty}</td></tr>`
+    : stocks.map(s => {
+        const totalValue = (Number(s.actiuni) || 0) * (Number(s.pretCurent) || 0);
+        const ret = stockReturn(s);
+        const retClass = ret >= 0 ? "text-brand-emerald" : "text-red-600";
+        return `<tr class="border-t border-slate-100 hover:bg-slate-50">
+          <td class="px-4 py-3 font-medium text-navy">${s.companie} <span class="text-slate-400 font-normal">(${s.ticker})</span></td>
+          <td class="px-4 py-3 text-right">${s.actiuni}</td>
+          <td class="px-4 py-3 text-right">${fmtMDL(s.pretMediu)}</td>
+          <td class="px-4 py-3 text-right">${fmtMDL(s.pretCurent)}</td>
+          <td class="px-4 py-3 text-right font-semibold">${fmtMDL(totalValue)}</td>
+          <td class="px-4 py-3 text-right">${fmtMDL(s.dividendeIncasate)}</td>
+          <td class="px-4 py-3 text-right font-semibold ${retClass}">${ret >= 0 ? "+" : ""}${fmtPct(ret)}</td>
+        </tr>`;
+      }).join("");
+
+  const bonds = portfolioData.bonds || [];
+  const bondsBody = document.getElementById("bonds-tbody");
+  bondsBody.innerHTML = bonds.length === 0
+    ? `<tr><td colspan="6" class="px-4 py-6 text-center text-slate-400">${dict.empty}</td></tr>`
+    : bonds.map(b => {
+        const projected = (Number(b.sumaInvestita) || 0) * ((Number(b.rataCuponProcent) || 0) / 100);
+        return `<tr class="border-t border-slate-100 hover:bg-slate-50">
+          <td class="px-4 py-3 font-medium text-navy">${b.codEmisiune} <span class="text-slate-400 font-normal">— ${b.maturitate}</span></td>
+          <td class="px-4 py-3 text-right">${fmtMDL(b.sumaInvestita)}</td>
+          <td class="px-4 py-3 text-right">${fmtPct(b.rataCuponProcent)}</td>
+          <td class="px-4 py-3 text-right">${b.frecventaPlata}</td>
+          <td class="px-4 py-3 text-right">${fmtMDL(b.couponIncasat)}</td>
+          <td class="px-4 py-3 text-right font-semibold text-brand-emerald">${fmtMDL(projected)}</td>
+        </tr>`;
+      }).join("");
+}
+
+function animateStats() {
+  const targets = { "stat-community": 100000, "stat-portfolio": 2500000, "stat-hours": 480 };
+  const suffixes = { "stat-community": "+", "stat-portfolio": " MDL", "stat-hours": "+" };
+  Object.entries(targets).forEach(([id, target]) => {
+    const el = document.getElementById(id);
+    let start = null;
+    const duration = 1500;
+    function step(ts) {
+      if (!start) start = ts;
+      const progress = Math.min((ts - start) / duration, 1);
+      el.textContent = Math.floor(progress * target).toLocaleString("ro-MD") + suffixes[id];
+      if (progress < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  });
+}
+
+function renderAll() {
+  renderLangSwitch();
+  renderText();
+  renderServices();
+  renderPortfolio();
+}
+
+// Mobile menu toggle
+document.getElementById("mobile-menu-btn").addEventListener("click", () => {
+  const menu = document.getElementById("mobile-menu");
+  const isOpen = !menu.classList.contains("hidden");
+  menu.classList.toggle("hidden");
+  document.getElementById("icon-menu").classList.toggle("hidden", !isOpen);
+  document.getElementById("icon-close").classList.toggle("hidden", isOpen);
+});
+document.querySelectorAll(".mobile-link").forEach(a => {
+  a.addEventListener("click", () => {
+    document.getElementById("mobile-menu").classList.add("hidden");
+    document.getElementById("icon-menu").classList.remove("hidden");
+    document.getElementById("icon-close").classList.add("hidden");
+  });
+});
+
+document.getElementById("footer-year").textContent = new Date().getFullYear();
+
+// Load portfolio.json (must be served over http/https — file:// will fail
+// due to browser fetch restrictions; use `vercel dev`, `npx serve`, or just
+// deploy to Vercel to test).
+fetch("./portfolio.json")
+  .then(r => r.json())
+  .then(data => { portfolioData = data; renderAll(); animateStats(); })
+  .catch(err => {
+    console.error("Nu s-a putut încărca portfolio.json:", err);
+    renderAll();
+    animateStats();
+  });
+</script>
+</body>
+</html>
