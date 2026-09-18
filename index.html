@@ -165,13 +165,16 @@
             <table class="w-full text-sm">
               <thead>
                 <tr class="bg-navy text-white text-left">
-                  <th class="px-4 py-3 font-semibold" data-i18n="portfolio.tier1.company"></th>
-                  <th class="px-4 py-3 font-semibold text-right" data-i18n="portfolio.tier1.shares"></th>
-                  <th class="px-4 py-3 font-semibold text-right" data-i18n="portfolio.tier1.avgPrice"></th>
-                  <th class="px-4 py-3 font-semibold text-right" data-i18n="portfolio.tier1.currentPrice"></th>
-                  <th class="px-4 py-3 font-semibold text-right" data-i18n="portfolio.tier1.totalValue"></th>
-                  <th class="px-4 py-3 font-semibold text-right" data-i18n="portfolio.tier1.dividends"></th>
-                  <th class="px-4 py-3 font-semibold text-right" data-i18n="portfolio.tier1.totalReturn"></th>
+                  <th class="px-4 py-3 font-semibold">Ticker</th>
+                  <th class="px-4 py-3 font-semibold text-right">Quantity</th>
+                  <th class="px-4 py-3 font-semibold text-right">Avg Price</th>
+                  <th class="px-4 py-3 font-semibold text-right">Invested</th>
+                  <th class="px-4 py-3 font-semibold text-right">Commission</th>
+                  <th class="px-4 py-3 font-semibold text-right">Cost</th>
+                  <th class="px-4 py-3 font-semibold text-right">Div Gross</th>
+                  <th class="px-4 py-3 font-semibold text-right">Div Taxes</th>
+                  <th class="px-4 py-3 font-semibold text-right">Div Net</th>
+                  <th class="px-4 py-3 font-semibold text-right">Div Yield %</th>
                 </tr>
               </thead>
               <tbody id="stocks-tbody"></tbody>
@@ -185,12 +188,16 @@
             <table class="w-full text-sm">
               <thead>
                 <tr class="bg-navy text-white text-left">
-                  <th class="px-4 py-3 font-semibold" data-i18n="portfolio.tier2.issue"></th>
-                  <th class="px-4 py-3 font-semibold text-right" data-i18n="portfolio.tier2.invested"></th>
-                  <th class="px-4 py-3 font-semibold text-right" data-i18n="portfolio.tier2.couponRate"></th>
-                  <th class="px-4 py-3 font-semibold text-right" data-i18n="portfolio.tier2.frequency"></th>
-                  <th class="px-4 py-3 font-semibold text-right" data-i18n="portfolio.tier2.couponReceived"></th>
-                  <th class="px-4 py-3 font-semibold text-right" data-i18n="portfolio.tier2.projectedIncome"></th>
+                  <th class="px-4 py-3 font-semibold">Code</th>
+                  <th class="px-4 py-3 font-semibold text-right">Price</th>
+                  <th class="px-4 py-3 font-semibold text-right">Quantity</th>
+                  <th class="px-4 py-3 font-semibold text-right">Invested</th>
+                  <th class="px-4 py-3 font-semibold text-right">Yield %</th>
+                  <th class="px-4 py-3 font-semibold">Issued</th>
+                  <th class="px-4 py-3 font-semibold">Maturity</th>
+                  <th class="px-4 py-3 font-semibold text-right">Days</th>
+                  <th class="px-4 py-3 font-semibold text-right">Interest</th>
+                  <th class="px-4 py-3 font-semibold">Sold</th>
                 </tr>
               </thead>
               <tbody id="bonds-tbody"></tbody>
@@ -388,15 +395,13 @@ function renderServices() {
 function computeKpis() {
   const stocks = portfolioData.stocks || [];
   const bonds = portfolioData.bonds || [];
-  const stocksValue = stocks.reduce((s, x) => s + (Number(x.actiuni) || 0) * (Number(x.pretCurent) || 0), 0);
-  const bondsValue = bonds.reduce((s, x) => s + (Number(x.sumaInvestita) || 0), 0);
+  const stocksValue = stocks.reduce((s, x) => s + (Number(x.invested) || 0), 0);
+  const bondsValue = bonds.reduce((s, x) => s + (Number(x.invested) || 0), 0);
   const totalValue = stocksValue + bondsValue;
-  const bondsAnnualIncome = bonds.reduce((s, b) => s + (Number(b.sumaInvestita) || 0) * ((Number(b.rataCuponProcent) || 0) / 100), 0);
-  const stocksCost = stocks.reduce((s, x) => s + (Number(x.actiuni) || 0) * (Number(x.pretMediu) || 0), 0);
-  const stocksGain = stocksValue - stocksCost + stocks.reduce((s, x) => s + (Number(x.dividendeIncasate) || 0), 0);
-  const totalCost = stocksCost + bondsValue;
-  const avgYield = totalCost > 0 ? ((stocksGain + bondsAnnualIncome) / totalCost) * 100 : 0;
-  return { totalValue, annualIncome: bondsAnnualIncome, avgYield };
+  const bondsAnnualIncome = bonds.reduce((s, b) => s + (Number(b.invested) || 0) * ((Number(b.yield) || 0) / 100), 0);
+  const stocksDivNet = stocks.reduce((s, x) => s + (Number(x.divNet) || 0), 0);
+  const avgYield = totalValue > 0 ? ((stocksDivNet + bondsAnnualIncome) / totalValue) * 100 : 0;
+  return { totalValue, annualIncome: bondsAnnualIncome + stocksDivNet, avgYield };
 }
 
 function stockReturn(s) {
@@ -417,35 +422,38 @@ function renderPortfolio() {
   const stocks = portfolioData.stocks || [];
   const stocksBody = document.getElementById("stocks-tbody");
   stocksBody.innerHTML = stocks.length === 0
-    ? `<tr><td colspan="7" class="px-4 py-6 text-center text-slate-400">${dict.empty}</td></tr>`
+    ? `<tr><td colspan="10" class="px-4 py-6 text-center text-slate-400">${dict.empty}</td></tr>`
     : stocks.map(s => {
-        const totalValue = (Number(s.actiuni) || 0) * (Number(s.pretCurent) || 0);
-        const ret = stockReturn(s);
-        const retClass = ret >= 0 ? "text-brand-emerald" : "text-red-600";
         return `<tr class="border-t border-slate-100 hover:bg-slate-50">
-          <td class="px-4 py-3 font-medium text-navy">${s.companie} <span class="text-slate-400 font-normal">(${s.ticker})</span></td>
-          <td class="px-4 py-3 text-right">${s.actiuni}</td>
-          <td class="px-4 py-3 text-right">${fmtMDL(s.pretMediu)}</td>
-          <td class="px-4 py-3 text-right">${fmtMDL(s.pretCurent)}</td>
-          <td class="px-4 py-3 text-right font-semibold">${fmtMDL(totalValue)}</td>
-          <td class="px-4 py-3 text-right">${fmtMDL(s.dividendeIncasate)}</td>
-          <td class="px-4 py-3 text-right font-semibold ${retClass}">${ret >= 0 ? "+" : ""}${fmtPct(ret)}</td>
+          <td class="px-4 py-3 font-medium text-navy">${s.ticker}</td>
+          <td class="px-4 py-3 text-right">${s.quantity}</td>
+          <td class="px-4 py-3 text-right">${fmtMDL(s.avgPrice)}</td>
+          <td class="px-4 py-3 text-right">${fmtMDL(s.invested)}</td>
+          <td class="px-4 py-3 text-right">${fmtMDL(s.commission)}</td>
+          <td class="px-4 py-3 text-right">${fmtMDL(s.cost)}</td>
+          <td class="px-4 py-3 text-right">${fmtMDL(s.divGross)}</td>
+          <td class="px-4 py-3 text-right">${fmtMDL(s.divTaxes)}</td>
+          <td class="px-4 py-3 text-right font-semibold">${fmtMDL(s.divNet)}</td>
+          <td class="px-4 py-3 text-right font-semibold text-brand-emerald">${fmtPct(s.divYield)}</td>
         </tr>`;
       }).join("");
 
   const bonds = portfolioData.bonds || [];
   const bondsBody = document.getElementById("bonds-tbody");
   bondsBody.innerHTML = bonds.length === 0
-    ? `<tr><td colspan="6" class="px-4 py-6 text-center text-slate-400">${dict.empty}</td></tr>`
+    ? `<tr><td colspan="10" class="px-4 py-6 text-center text-slate-400">${dict.empty}</td></tr>`
     : bonds.map(b => {
-        const projected = (Number(b.sumaInvestita) || 0) * ((Number(b.rataCuponProcent) || 0) / 100);
         return `<tr class="border-t border-slate-100 hover:bg-slate-50">
-          <td class="px-4 py-3 font-medium text-navy">${b.codEmisiune} <span class="text-slate-400 font-normal">— ${b.maturitate}</span></td>
-          <td class="px-4 py-3 text-right">${fmtMDL(b.sumaInvestita)}</td>
-          <td class="px-4 py-3 text-right">${fmtPct(b.rataCuponProcent)}</td>
-          <td class="px-4 py-3 text-right">${b.frecventaPlata}</td>
-          <td class="px-4 py-3 text-right">${fmtMDL(b.couponIncasat)}</td>
-          <td class="px-4 py-3 text-right font-semibold text-brand-emerald">${fmtMDL(projected)}</td>
+          <td class="px-4 py-3 font-medium text-navy">${b.code}</td>
+          <td class="px-4 py-3 text-right">${fmtMDL(b.price)}</td>
+          <td class="px-4 py-3 text-right">${b.quantity}</td>
+          <td class="px-4 py-3 text-right">${fmtMDL(b.invested)}</td>
+          <td class="px-4 py-3 text-right">${fmtPct(b.yield)}</td>
+          <td class="px-4 py-3">${b.issued}</td>
+          <td class="px-4 py-3">${b.maturity}</td>
+          <td class="px-4 py-3 text-right">${b.days}</td>
+          <td class="px-4 py-3 text-right">${b.interest ? fmtMDL(b.interest) : "-"}</td>
+          <td class="px-4 py-3">${b.sold || "-"}</td>
         </tr>`;
       }).join("");
 }
